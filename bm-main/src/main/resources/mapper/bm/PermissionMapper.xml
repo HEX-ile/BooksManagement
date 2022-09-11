@@ -2,4 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bm.mapper.PermissionMapper">
 
+    <sql id="Base_Column_List">
+        id, pid, `code`, `name`, create_date, update_date, creater, updater, comments
+    </sql>
+
+    <select id="getPermissionListFromRoleId" parameterType="java.util.List" resultType="com.bm.entity.Permission">
+        SELECT <include refid="Base_Column_List"></include> FROM bm_permission WHERE id IN (SELECT permission_id FROM bm_role_permission
+        WHERE role_id in (
+        <foreach collection="roleIdList" item="id" index="index" separator =",">
+            #{id, jdbcType=INTEGER}
+        </foreach>
+        ))
+    </select>
+
+    <select id="getList" parameterType="java.lang.String" resultType="com.bm.entity.Permission">
+        select id, pid, `code`, `name` from bm_permission
+    </select>
+
+    <select id="getById" parameterType="java.lang.Integer" resultType="map">
+        select <include refid="Base_Column_List"/>
+        from bm_permission where id = #{id, jdbcType=INTEGER}
+    </select>
+
+    <insert id="createPermission" parameterType="com.bm.entity.Permission">
+        INSERT INTO bm_permission (id, pid, code, name, creater, create_date)
+        VALUES (#{id,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+                #{creater,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP});
+    </insert>
+
+    <delete id="deletePermission" parameterType="java.lang.Integer">
+        DELETE FROM bm_permission WHERE id = #{id, jdbcType=INTEGER};
+    </delete>
 </mapper>

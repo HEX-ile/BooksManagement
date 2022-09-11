@@ -2,4 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bm.mapper.UserRoleMapper">
 
+    <sql id="Base_Column_List">
+        id, user_id, role_id, `status`
+    </sql>
+
+    <select id="getRoleListByRoleId" parameterType="java.lang.Integer" resultType="com.bm.entity.UserRole">
+        SELECT <include refid="Base_Column_List"/>
+            FROM bm_user_role WHERE role_id = #{roleId, jdbcType=INTEGER} AND status = 0
+    </select>
+
+    <select id="getList" parameterType="java.lang.String" resultType="com.bm.entity.UserRole">
+        select id, user_id, role_id, status from bm_user_role
+    </select>
+
+    <insert id="createUserRole" parameterType="com.bm.entity.UserRole">
+        INSERT INTO bm_user_role (id, user_id, role_id, `status`, creater, create_date)
+        VALUES (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER},
+                #{creater,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP});
+    </insert>
+
+    <update id="deleteUserRole" parameterType="java.lang.Integer">
+        UPDATE bm_user_role
+        SET status = 1
+        WHERE id = #{id, jdbcType=INTEGER};
+    </update>
 </mapper>

@@ -6,4 +6,64 @@
     <cache type="com.bm.common.config.MybatisRedisCache"/>
     <cache/>
 
+    <sql id="Base_Column_List">
+        id, `name`, book_number, publishing_house, book_class, author, bookshelf_number, `over`, `status`
+    </sql>
+
+    <select id="getList" parameterType="java.lang.String" resultType="com.bm.entity.Book">
+        select <include refid="Base_Column_List"/>
+        from bm_book where `status` in (0,1)
+        <if test="name != null and name != ''">
+            AND name LIKE concat('%',#{name, jdbcType=VARCHAR},'%')
+        </if>
+        <if test="bookClass != null and bookClass != ''">
+            AND book_class LIKE concat('%',#{bookClass, jdbcType=VARCHAR},'%')
+        </if>
+        <if test="author != null and author != ''">
+            AND author LIKE concat('%',#{author, jdbcType=VARCHAR},'%')
+        </if>
+        <if test="bookshelfNumber != null and bookshelfNumber != ''">
+            AND bookshelf_number LIKE concat('%',#{bookshelfNumber, jdbcType=VARCHAR},'%')
+        </if>
+    </select>
+
+    <select id="getById" parameterType="java.lang.Integer" resultType="map">
+        select <include refid="Base_Column_List"/>
+        from bm_book where id = #{id, jdbcType=INTEGER}
+    </select>
+
+    <insert id="createBook" parameterType="com.bm.entity.Book">
+        INSERT INTO bm_book (id, name, book_number, publishing_house, book_class, author, bookshelf_number,
+                             `over`, status, creater, create_date)
+        VALUES (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{bookNumber,jdbcType=VARCHAR},
+                #{publishingHouse,jdbcType=VARCHAR}, #{bookClass,jdbcType=VARCHAR}, #{author,jdbcType=INTEGER},
+                #{bookshelfNumber,jdbcType=VARCHAR}, #{over,jdbcType=INTEGER}, #{status,jdbcType=INTEGER},
+                #{creater,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP});
+    </insert>
+
+    <update id="modifyBookInfo" parameterType="com.bm.entity.Book">
+        UPDATE bm_book
+        SET name = #{name,jdbcType=INTEGER}, book_number = #{bookNumber,jdbcType=VARCHAR},
+            publishing_house = #{publishingHouse,jdbcType=VARCHAR}, book_class = #{bookClass,jdbcType=VARCHAR},
+            author = #{author,jdbcType=INTEGER}, bookshelf_number = #{bookshelfNumber,jdbcType=VARCHAR},
+            updater = #{updater,jdbcType=VARCHAR}, update_date = #{updateDate,jdbcType=TIMESTAMP}
+        WHERE id = #{id, jdbcType=INTEGER};
+    </update>
+
+    <update id="borrowBook" parameterType="com.bm.entity.Book">
+        UPDATE bm_book
+        SET `over` = #{over,jdbcType=INTEGER}, status = #{status,jdbcType=INTEGER}
+        WHERE id = #{id, jdbcType=INTEGER};
+    </update>
+
+    <update id="deleteBook" parameterType="java.lang.Integer">
+        UPDATE bm_book
+        SET status = 2
+        WHERE id = #{id, jdbcType=INTEGER};
+    </update>
+
+    <select id="selectById" parameterType="java.lang.Integer" resultType="com.bm.entity.Book">
+        select <include refid="Base_Column_List"/>
+        from bm_book where id = #{id, jdbcType=INTEGER}
+    </select>
 </mapper>

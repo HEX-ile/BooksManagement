@@ -3,7 +3,7 @@
 	debug="false">
 	<contextName>web</contextName>
 
-	<property name="log.path" value="log/uom-main" />
+	<property name="log.path" value="log/bm-main" />
 	<property name="log.maxHistory" value="15" />
 	<property name="log.colorPattern"
 		value="%d{yyyy-MM-dd HH:mm:ss.SSS} | %highlight(%-5level) | %boldYellow(%thread) | %boldGreen(%logger) | %msg%n" />

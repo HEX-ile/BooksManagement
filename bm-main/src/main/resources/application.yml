@@ -24,7 +24,7 @@ mybatis-plus:
     call-setters-on-nulls: true
   mapper-locations: classpath*:/mapper/**/*.xml
   #实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: com.uom.*.*.entity
+  typeAliasesPackage: com.bm.*.*.entity
   global-config:
     #数据库相关配置
     db-config:

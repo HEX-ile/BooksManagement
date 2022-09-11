@@ -102,6 +102,13 @@
             <version>0.9.1</version>
         </dependency>
         <!-- JWT -->
+        <!--腾讯云依赖-->
+        <dependency>
+            <groupId>com.tencentcloudapi</groupId>
+            <artifactId>tencentcloud-sdk-java</artifactId>
+            <version>3.1.590</version>
+        </dependency>
+        <!--腾讯云依赖-->
     </dependencies>
 
     <build>

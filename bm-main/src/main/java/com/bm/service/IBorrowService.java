@@ -1,6 +1,7 @@
 package com.bm.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.bm.common.utils.Reply;
 import com.bm.entity.Borrow;
 
 /**
@@ -13,4 +14,7 @@ import com.bm.entity.Borrow;
  */
 public interface IBorrowService extends IService<Borrow> {
 
+    Reply borrowBook(Borrow borrow) throws Exception;
+
+    Reply returnBook(int userId, int bookId) throws Exception;
 }

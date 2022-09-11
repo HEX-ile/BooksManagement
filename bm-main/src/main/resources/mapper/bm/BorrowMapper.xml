@@ -2,4 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bm.mapper.BorrowMapper">
 
+    <!-- 开启基于redis的二级缓存 -->
+    <cache type="com.bm.common.config.MybatisRedisCache"/>
+    <cache/>
+
+    <sql id="Base_Column_List">
+        id, user_id, book_id, borrow_time, return_time, `status`
+    </sql>
+
+    <update id="returnBook" parameterType="java.lang.Integer">
+        UPDATE bm_borrow
+        SET status = 1
+        WHERE id = #{id, jdbcType=INTEGER};
+    </update>
+
+    <select id="selectBorrowBook" parameterType="java.lang.Integer" resultType="com.bm.entity.Borrow">
+        select id, user_id, book_id
+        from bm_borrow where status in (0, 2)
+        <if test="bookId != null and bookId != ''">
+            AND book_id = #{bookId, jdbcType=INTEGER}
+        </if>
+        <if test="userId != null and userId != ''">
+            AND user_id = #{userId, jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <insert id="createBorrow" parameterType="com.bm.entity.Borrow">
+        INSERT INTO bm_borrow (id, user_id, book_id, borrow_time, return_time, status, creater, create_date)
+        VALUES (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{bookId,jdbcType=INTEGER},
+                #{borrowTime,jdbcType=TIMESTAMP}, #{returnTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER},
+                #{creater,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP});
+    </insert>
 </mapper>

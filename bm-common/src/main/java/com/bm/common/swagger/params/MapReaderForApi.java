@@ -70,7 +70,7 @@ public class MapReaderForApi implements ParameterBuilderPlugin {
     /**
      * 根据propertys中的值动态生成含有Swagger注解的javaBeen
      */
-    private Class createRefModel(ApiParamProperty[] propertys, String name) {
+    private Class<?> createRefModel(ApiParamProperty[] propertys, String name) {
         ClassPool pool = ClassPool.getDefault();
         if (basePackage == null) {
             basePackage = this.getClass().getPackage().getName() + ".";

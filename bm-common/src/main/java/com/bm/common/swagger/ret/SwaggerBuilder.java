@@ -1,8 +1,8 @@
-package com.bm.common.swagger.ret;//package cn.code.common.swagger.ret;
+//package com.bm.common.swagger.ret;
 //
 //
-//import cn.code.common.swagger.SwaggerEnum;
-//import cn.code.common.swagger.SwaggerObject;
+//import com.bm.common.swagger.SwaggerEnum;
+//import com.bm.common.swagger.SwaggerObject;
 //import com.fasterxml.classmate.ResolvedType;
 //import com.fasterxml.classmate.TypeResolver;
 //import com.fasterxml.classmate.members.RawField;

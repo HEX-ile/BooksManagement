@@ -20,10 +20,10 @@ public class SwaggerConfig {
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
-                //.enable(swaggerShow)
-                .pathMapping("/")
+                .enable(swaggerShow)
+//                .pathMapping("/")
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.uom"))
+                .apis(RequestHandlerSelectors.basePackage("com.bm"))
                 .paths(PathSelectors.any())
                 .build().apiInfo(new ApiInfoBuilder()
                         .title("SpringBoot整合Swagger")

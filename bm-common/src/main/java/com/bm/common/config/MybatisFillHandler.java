@@ -1,7 +1,7 @@
 package com.bm.common.config;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.bm.index.entity.User;
+import com.bm.entity.User;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -41,7 +41,7 @@ public class MybatisFillHandler implements MetaObjectHandler {
         String id = getStaffName();
 
         if (Objects.nonNull(id)) {
-            this.strictInsertFill(metaObject, "updater", String.class, id);
+            this.strictUpdateFill(metaObject, "updater", String.class, id);
         }
         // 起始版本 3.3.0(推荐使用)
         this.strictUpdateFill(metaObject, "updateDate", LocalDateTime.class, LocalDateTime.now());
@@ -52,11 +52,11 @@ public class MybatisFillHandler implements MetaObjectHandler {
         try {
             ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
             HttpServletRequest request = requestAttributes.getRequest();
-            User uomUser = (User) request.getSession().getAttribute("user");
-            staffName = uomUser.getId() + "";
+            User user = (User) request.getSession().getAttribute("user");
+            staffName = user.getId() + "";
         } catch (Exception e) {
             // log.error(e.getMessage());
-            staffName = "sys";
+            staffName = "system";
         }
         return staffName;
     }

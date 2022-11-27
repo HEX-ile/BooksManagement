@@ -1,6 +1,6 @@
 spring:
   redis:
-    host: 127.0.0.1
+    host: redis-9b72efef-ea1b-4792-9fe3-04243136a67e.cn-east-3.dcs.myhuaweicloud.com
     port: 6379
     #password: 123456
     lettuce:
@@ -12,7 +12,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: 123456
+    password: HEXZX2659
     url: jdbc:mysql://127.0.0.1:3306/books?characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
     type: com.alibaba.druid.pool.DruidDataSource
 swagger.show: true
